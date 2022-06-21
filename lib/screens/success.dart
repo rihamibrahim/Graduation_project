@@ -124,6 +124,7 @@ class _SuccessState extends State<Success> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const SigninScreen()));
+                                socket?.close();
                               },
                               child: const Text(
                                 'OK',

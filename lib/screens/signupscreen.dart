@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zq/reusable/reuseable_component.dart';
 import 'package:zq/utils/colors_utils.dart';
 import 'camscanner.dart';
+import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -68,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CamScanner()));
+                                  builder: (context) => const HomeScreen()));
                         }).onError((error, stackTrace) {
                           print("Error ${error.toString()}");
                         });

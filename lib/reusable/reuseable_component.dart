@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -152,4 +155,10 @@ Future<void> getUserData() async {
       print(onError);
     });
   }
+}
+
+Socket? socket;
+Future<void> getSocket() async {
+  socket =await Socket.connect('192.168.1.2', 8080);
+  //send data
 }
