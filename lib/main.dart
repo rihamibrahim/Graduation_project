@@ -1,7 +1,13 @@
 // @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:zq/screens/camscanner.dart';
+=======
+import 'package:zq/reusable/reuseable_component.dart';
+import 'package:zq/screens/failed.dart';
+import 'package:zq/screens/home_screen.dart';
+>>>>>>> 54c762e29d2870d953137ad64b137a19b52aa432
 import 'package:zq/screens/splashscreen.dart';
 
 void main() async{
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }

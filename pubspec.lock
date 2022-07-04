@@ -77,9 +77,22 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.16.0"
   convert:
     dependency: "direct main"
+=======
+    version: "1.15.0"
+  convert:
+    dependency: "direct main"
+    description:
+      name: convert
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
+  cross_file:
+    dependency: transitive
+>>>>>>> 54c762e29d2870d953137ad64b137a19b52aa432
     description:
       name: convert
       url: "https://pub.dartlang.org"

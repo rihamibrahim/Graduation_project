@@ -5,6 +5,7 @@ import 'package:zq/screens/resetpassword.dart';
 import 'package:zq/screens/signupscreen.dart';
 import 'package:zq/utils/colors_utils.dart';
 import 'camscanner.dart';
+import 'home_screen.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({Key? key}) : super(key: key);
@@ -57,11 +58,18 @@ class _SigninScreenState extends State<SigninScreen> {
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                             .then((value) {
+<<<<<<< HEAD
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context)=> const CamScanner() ),
                                       (route) => false);
+=======
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()));
+>>>>>>> 54c762e29d2870d953137ad64b137a19b52aa432
                         }).onError((error,  stackTrace){
                           print("Error ${error.toString()}");
                         });

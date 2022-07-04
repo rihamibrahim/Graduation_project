@@ -76,8 +76,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
+<<<<<<< HEAD
                                   builder: (context)=> const CamScanner() ),
                                   (route) => false);
+=======
+                                  builder: (context) => const HomeScreen()));
+>>>>>>> 54c762e29d2870d953137ad64b137a19b52aa432
                         }).onError((error, stackTrace) {
                           print("Error ${error.toString()}");
                         });
