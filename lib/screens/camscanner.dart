@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:zq/reusable/reuseable_component.dart';
-import 'package:zq/screens/success.dart';
-
-import 'failed.dart';
+import 'package:zq/screens/home_screen.dart';
 
 class CamScanner extends StatefulWidget {
   const CamScanner({Key? key}) : super(key: key);
@@ -26,6 +23,7 @@ class _CamScannerState extends State<CamScanner> {
       setState(() {
         userName = value.data()!['name'];
         userEmail = value.data()!['email'];
+        userId=value.data()!['id'];
       });
     });
   }
@@ -37,27 +35,8 @@ class _CamScannerState extends State<CamScanner> {
     });
     super.initState();
   }
+
   var qrstr = " ";
-  Future<void> scanQr() async {
-   await qrstr;
-    try {
-      FlutterBarcodeScanner.scanBarcode(
-          "#ff6666",
-          "cancel",
-          true,
-          ScanMode.QR);
-      if(!mounted)return;
-      setState(() {
-        if(qrstr=='Hello :)'){
-          Navigator.push(context,  MaterialPageRoute(builder: (context) => const Success()));
-        }else{
-          Navigator.push(context,  MaterialPageRoute(builder: (context) => const UnSuccess()));
-        }
-      });
-    } catch (e) {
-        qrstr = 'failed to get plat form version.';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +57,11 @@ class _CamScannerState extends State<CamScanner> {
                     color: Color(0xff1C2D40),
                     fontSize: 25),
               )
-            //Image.asset('assets/images/1.png', fit: BoxFit.cover),
+
           )),
-      body: userName==null||userEmail==null?const Center(child: CircularProgressIndicator()):Padding(
-        padding: EdgeInsets.all(15.0),
+      body: userName == null || userEmail == null ? const Center(
+          child: CircularProgressIndicator()) : Padding(
+        padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -89,12 +69,12 @@ class _CamScannerState extends State<CamScanner> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30.0,
-                    backgroundColor: Color(0xff1C2D40),
+                    backgroundColor: const Color(0xff1C2D40),
                     child: Text(
-                      '',
-                      style: TextStyle(
+                      userName![0],
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           color: Colors.white),
@@ -109,6 +89,7 @@ class _CamScannerState extends State<CamScanner> {
                     children: [
                       Text(
                         "$userName",
+                        //"$userName",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15.0,
@@ -116,7 +97,8 @@ class _CamScannerState extends State<CamScanner> {
                         ),
                       ),
                       Text(
-                        "$userEmail",
+                        "$userId",
+                       // "$userEmail",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15.0,
@@ -132,7 +114,7 @@ class _CamScannerState extends State<CamScanner> {
               ),
               const Text(
                 'Hi !, \nWelcome to your class',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 30.0,
@@ -178,5 +160,28 @@ class _CamScannerState extends State<CamScanner> {
         ),
       ),
     );
+  }
+  Future<void> scanQr() async {
+    await qrstr;
+    try {
+      final qrstr = await
+      FlutterBarcodeScanner.scanBarcode(
+          "#ff6666",
+           "cancel",
+          true,
+          ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        this.qrstr = qrstr;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const HomeScreen()));
+      });
+    } catch (e) {
+      qrstr = 'failed to get plat form version.';
+    }
   }
 }

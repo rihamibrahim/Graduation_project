@@ -68,7 +68,7 @@ class _SuccessState extends State<Success> {
                         ),
                       ),
                       Text(
-                        "$userEmail",
+                        "$userId",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15.0,

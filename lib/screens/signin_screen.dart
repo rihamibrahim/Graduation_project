@@ -57,10 +57,11 @@ class _SigninScreenState extends State<SigninScreen> {
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                             .then((value) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const CamScanner()));
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context)=> const CamScanner() ),
+                                      (route) => false);
                         }).onError((error,  stackTrace){
                           print("Error ${error.toString()}");
                         });
@@ -105,7 +106,7 @@ class _SigninScreenState extends State<SigninScreen> {
           textAlign: TextAlign.right,
         ),
         onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>  const ResetPassword())),
+            context, MaterialPageRoute(builder: (context) => const ResetPassword())),
       ),
     );
   }

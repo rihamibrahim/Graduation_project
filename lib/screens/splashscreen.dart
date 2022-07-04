@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:zq/screens/signin_screen.dart';
 import '../utils/colors_utils.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget
+{
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+{
   @override
-  void initState() {
+  void initState()
+
+  {
     // TODO: implement initState
     super.initState();
     Timer(
@@ -21,8 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
             MaterialPageRoute(builder: (context) => const SigninScreen())));
   }
 
+
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -32,7 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
               hexStringToColor("031B88"),
               hexStringToColor("6096FD"),
               hexStringToColor("AAB6FB"),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            ],
+            begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             child: Center(
                 // ignore: prefer_const_literals_to_create_immutables
                 child: Column(
@@ -43,6 +51,10 @@ class _SplashScreenState extends State<SplashScreen> {
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff1C2D40))),
-                ]))));
+                ]
+                )
+            )
+        )
+    );
   }
 }

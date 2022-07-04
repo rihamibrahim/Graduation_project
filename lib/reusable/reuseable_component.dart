@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,8 @@ import '../shared_preference.dart';
 
 var uId = CacheHelper.getSaved(key: 'uId');
 
-Image logoWidget(String imageName) {
+Image logoWidget(String imageName)
+{
   return Image.asset(
     imageName,
     fit: BoxFit.fitWidth,
@@ -26,7 +28,8 @@ TextField reusableTextField(
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
     style: TextStyle(color: Colors.white.withOpacity(0.9)),
-    decoration: InputDecoration(
+    decoration: InputDecoration
+      (
       prefixIcon: Icon(
         icon,
         color: Colors.white70,
@@ -46,28 +49,37 @@ TextField reusableTextField(
   );
 }
 
-Container firebaseUIButton(BuildContext context, String title, Function onTap ) {
-  return Container(
+Container firebaseUIButton(BuildContext context, String title, Function onTap )
+{
+  return Container
+    (
     width: MediaQuery.of(context).size.width,
     height: 50,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
-    child: ElevatedButton(
-      onPressed: () {
+    child: ElevatedButton
+      (
+      onPressed: ()
+      {
         onTap();
       },
-      child: Text(
+      child: Text
+        (
         title,
         style: const TextStyle(
             color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 20),
       ),
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.pressed)) {
+      style: ButtonStyle
+        (
+          backgroundColor: MaterialStateProperty.resolveWith((states)
+          {
+            if (states.contains(MaterialState.pressed))
+            {
               return Colors.black26;
             }
             return Colors.white;
-          }),
+          }
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
     ),
@@ -78,7 +90,9 @@ Future<void> userRegister({
   required String password,
   required String email,
   required String name,
-}) async {
+  required String id,
+}) async
+{
   await FirebaseAuth.instance
       .createUserWithEmailAndPassword(email: email, password: password)
       .then((value) async {
@@ -86,7 +100,7 @@ Future<void> userRegister({
         .then((value) async {
       uId = CacheHelper.getSaved(key: 'uId');
     });
-    await userCreate(email: email, name: name, uId: value.user!.uid);
+    await userCreate(email: email, name: name, uId: value.user!.uid, id: id);
   }).catchError((onError) {
     print(onError);
   });
@@ -94,17 +108,22 @@ Future<void> userRegister({
 
  String? userName;
  String? userEmail;
+ String? userId;
 
 
 Future<void> userCreate({
   required String email,
   required String name,
   required String uId,
-}) async {
-  UserModel model = UserModel(
+  required String id,
+}) async
+{
+  UserModel model = UserModel
+    (
     email: email,
     name: name,
     iId: uId,
+    id: id,
   );
   await FirebaseFirestore.instance
       .collection('users')
@@ -130,7 +149,7 @@ Future<void> userLogin(
     await getUserData();
   }).onError((error, stackTrace) {
     String onError = 'Some thing went wrong please call developer.';
-    print (error);
+    print (onError);
   });
 }
 
@@ -138,8 +157,10 @@ Future<void> userLogin(
 UserModel? userModel;
 bool isGetUserDataNull = true;
 
-Future<void> getUserData() async {
-  if (uId != null) {
+Future<void> getUserData() async
+{
+  if (uId != null)
+  {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
@@ -153,3 +174,4 @@ Future<void> getUserData() async {
     });
   }
 }
+

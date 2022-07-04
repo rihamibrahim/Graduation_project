@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zq/reusable/reuseable_component.dart';
 import 'package:zq/utils/colors_utils.dart';
 import 'camscanner.dart';
+import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _userNameTextController = TextEditingController();
+  final TextEditingController _idTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
-              hexStringToColor("031B88"),
-              hexStringToColor("6096FD"),
-              hexStringToColor("AAB6FB"),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                  hexStringToColor("031B88"),
+                  hexStringToColor("6096FD"),
+                  hexStringToColor("AAB6FB"),
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             child: SingleChildScrollView(
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
@@ -43,8 +45,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      reusableTextField("UserName", Icons.person_outline, false,
+                      reusableTextField("User Name", Icons.person_outline, false,
                           _userNameTextController),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      reusableTextField("ID", Icons.person_outline, false,
+                          _idTextController),
                       const SizedBox(
                         height: 20,
                       ),
@@ -63,12 +70,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           name: _userNameTextController.text,
                           email: _emailTextController.text,
                           password: _passwordTextController.text,
+                          id: _idTextController.text,
                         ).then((value) {
                           print('your Account Created');
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CamScanner()));
+                                  builder: (context)=> const CamScanner() ),
+                                  (route) => false);
                         }).onError((error, stackTrace) {
                           print("Error ${error.toString()}");
                         });
